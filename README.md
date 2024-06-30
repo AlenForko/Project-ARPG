@@ -114,6 +114,9 @@ This project is my graduation project developed in Unreal Engine 5.3 using C++. 
 
 ![Loot Table example](https://github.com/AlenForko/Project-ARPG/blob/main/Screenshots/LootTable.png)
 
+### **Loot Explosion**:
+![Loot Explosion](https://github.com/AlenForko/Project-ARPG/blob/main/Screenshots/Showcase.png)
+
 ## **Item Generation System**: [DataLibrary.h](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/DataLibrary.h) | [BaseItem.h](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/BaseItem.h) | [BaseItem.cpp](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/BaseItem.cpp)
   
 ### **Overview**:
@@ -222,4 +225,6 @@ The Affixes Generation System in our project dynamically enhances item attribute
 ## **User Interface**:
 - The user interface is designed to be intuitive and responsive, providing a seamless experience for players. Each system's UI (loot, item generation, equipment, and inventory) is crafted to be easy to navigate and understand, enhancing the overall user experience.
 
-# Screenshots
+# Early Stage Screenshots
+![Showcase1](https://github.com/AlenForko/Project-ARPG/blob/main/Screenshots/EarlyLootStage.png)
+![Showcase3](https://github.com/AlenForko/Project-ARPG/blob/main/Screenshots/showcase3.png)
