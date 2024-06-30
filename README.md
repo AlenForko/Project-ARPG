@@ -14,79 +14,81 @@ This project is my graduation project developed in Unreal Engine 5.3 using C++. 
 > [!NOTE]
 > - The "**LevelTileManager**" was initially designed to manage both world tile generation and loot generation. After merging functionalities, the name LevelTileManager remained.
 
-<details>  
-<summary>CLICK TO REVEAL CODE -----></summary>
-	
-```c++
- void ALevelTileManager::GenerateLoot(ABaseEnemy* Enemy)
-{
-	FVector EnemyLocation = Enemy->GetActorLocation();
-
-	if (!LootTable) return;
-	const FString ContextString(TEXT("Loot Table Context"));
-	const TArray<FName> RowNames = LootTable->GetRowNames();
-	if (RowNames.Num() == 0) return;
-
-	float TotalWeight = 0;
-	for (const FName RowName : RowNames)
-	{
-		if (const FLootTable* LootRow = LootTable->FindRow<FLootTable>(RowName, ContextString))
-		{
-			TotalWeight += LootRow->Weight;
-		}
-	}
-
-	for (int i = 0; i < NumItemsToSpawn;)
-	{
-		const float RandomWeight = FMath::FRandRange(0, TotalWeight);
-
-		UE_LOG(LogTemp, Warning, TEXT("RandomWeight in loot: %f"), RandomWeight);
-
-		float CurrentWeight = 0;
-
-		for (const FName RowName : RowNames)
-		{
-			if (const FLootTable* LootRow = LootTable->FindRow<FLootTable>(RowName, ContextString))
-			{
-				CurrentWeight += LootRow->Weight;
-
-				if (CurrentWeight > RandomWeight)
-				{
-					if (!IsValid(LootRow->ItemDataAsset)) // No loot row taken into consideration
-					{
-						i++;
-						break;
-					}
-
-					if (UItemDataAsset* SelectedItem = LootRow->ItemDataAsset)
-					{
-						SpawnLootAroundEnemy(SelectedItem, i, EnemyLocation);
-						break;
-					}
-					break;
-				}
-			}
-		}
-	}
-}
-
-void ALevelTileManager::SpawnLootAroundEnemy(UItemDataAsset* ItemData, int32& NextItem, const FVector EnemyLocation)
-{
-	const FVector SpawnLocation = FVector(EnemyLocation.X, EnemyLocation.Y, GetActorLocation().Z);
-
-	if (ItemData && BaseItemActor)
-	{
-		FItemGenericInfo ItemInfo = UDataLibrary::GenerateItem(ItemData->ItemGenericInfo, NextItem);
-
-		if (ABaseItem* NewItem = GetWorld()->SpawnActor<ABaseItem>(BaseItemActor, SpawnLocation, FRotator::ZeroRotator))
-		{
-			NewItem->GenerateItem(ItemInfo);
-		}
-	}
-}
-```
-
-</details>
+> [!TIP]
+> 
+> <details>  
+> <summary>CLICK TO REVEAL CODE -----></summary>
+> 
+> ```c++
+>  void ALevelTileManager::GenerateLoot(ABaseEnemy* Enemy)
+> {
+>     FVector EnemyLocation = Enemy->GetActorLocation();
+> 
+>     if (!LootTable) return;
+>     const FString ContextString(TEXT("Loot Table Context"));
+>     const TArray<FName> RowNames = LootTable->GetRowNames();
+>     if (RowNames.Num() == 0) return;
+> 
+>     float TotalWeight = 0;
+>     for (const FName RowName : RowNames)
+>     {
+>         if (const FLootTable* LootRow = LootTable->FindRow<FLootTable>(RowName, ContextString))
+>         {
+>             TotalWeight += LootRow->Weight;
+>         }
+>     }
+> 
+>     for (int i = 0; i < NumItemsToSpawn;)
+>     {
+>         const float RandomWeight = FMath::FRandRange(0, TotalWeight);
+> 
+>         UE_LOG(LogTemp, Warning, TEXT("RandomWeight in loot: %f"), RandomWeight);
+> 
+>         float CurrentWeight = 0;
+> 
+>         for (const FName RowName : RowNames)
+>         {
+>             if (const FLootTable* LootRow = LootTable->FindRow<FLootTable>(RowName, ContextString))
+>             {
+>                 CurrentWeight += LootRow->Weight;
+> 
+>                 if (CurrentWeight > RandomWeight)
+>                 {
+>                     if (!IsValid(LootRow->ItemDataAsset)) // No loot row taken into consideration
+>                     {
+>                         i++;
+>                         break;
+>                     }
+> 
+>                     if (UItemDataAsset* SelectedItem = LootRow->ItemDataAsset)
+>                     {
+>                         SpawnLootAroundEnemy(SelectedItem, i, EnemyLocation);
+>                         break;
+>                     }
+>                     break;
+>                 }
+>             }
+>         }
+>     }
+> }
+> 
+> void ALevelTileManager::SpawnLootAroundEnemy(UItemDataAsset* ItemData, int32& NextItem, const FVector EnemyLocation)
+> {
+>     const FVector SpawnLocation = FVector(EnemyLocation.X, EnemyLocation.Y, GetActorLocation().Z);
+> 
+>     if (ItemData && BaseItemActor)
+>     {
+>         FItemGenericInfo ItemInfo = UDataLibrary::GenerateItem(ItemData->ItemGenericInfo, NextItem);
+> 
+>         if (ABaseItem* NewItem = GetWorld()->SpawnActor<ABaseItem>(BaseItemActor, SpawnLocation, FRotator::ZeroRotator))
+>         {
+>             NewItem->GenerateItem(ItemInfo);
+>         }
+>     }
+> }
+> ```
+> 
+> </details>
 
 ### **Overview**:
 
@@ -110,15 +112,10 @@ void ALevelTileManager::SpawnLootAroundEnemy(UItemDataAsset* ItemData, int32& Ne
 
 ### **Loot Table example**:
 
-// ADD IMAGE HERE OF LOOT TABLE
+![Loot Table example](https://github.com/AlenForko/Project-ARPG/blob/main/Screenshots/LootTable.png)
 
-
-## **Item Generation System**: [DataLibrary.h](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/DataLibrary.h)
+## **Item Generation System**: [DataLibrary.h](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/DataLibrary.h) | [BaseItem.h](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/BaseItem.h) | [BaseItem.cpp](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/BaseItem.cpp)
   
-> [!NOTE]
-> - It is used to generate the item information which are created in separate **Data Assets** and those are fed into a **Data Table** A.K.A loot table.
-> - Once added to the loot table, the level manager uses that table to roll for X amount of items to drop based on their weights and rarity.
-
 ### **Overview**:
 - [DataLibrary.h](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/DataLibrary.h) defines several enumerations, structs, and inline functions that are fundamental for the item generation system in our project. These definitions help in creating and managing item attributes and their behaviors, which are then used in data assets and loot tables.
 
@@ -152,74 +149,69 @@ void ALevelTileManager::SpawnLootAroundEnemy(UItemDataAsset* ItemData, int32& Ne
 
 ### **Item Generation Example**:
   
-// ADD IMAGE HERE
+![Item Generation Example](https://github.com/AlenForko/Project-ARPG/blob/main/Screenshots/ItemExample.png)
 
-## **Affixes Generation System**: [AffixLibrary.h](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/Public/AffixLibrary.h) [AffixLibrary.cpp](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/Private/AffixLibrary.cpp)
-> [!NOTE]
-> - Randomized Prefixes & Suffixes for items based on item rarity and stats in [BaseItem.cpp](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/BaseItem.cpp).
-> - With the help of a FORCEINLINE function in [DataLibrary.h](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/Public/AffixLibrary.h), it assigns the item with the minimum and maximum amount of affixes possible to said item.
+## **Affixes Generation System**: [AffixLibrary.h](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/Public/AffixLibrary.h) | [AffixLibrary.cpp](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/Private/AffixLibrary.cpp)
 
-<details>  
-<summary>CLICK TO REVEAL FORCEINLINE function -----></summary>
-	
-```c++
-FORCEINLINE std::pair<int32, int32> GetMinMaxAffixes() const
-	{
-		int32 Min = 0;
-		int32 Max = 0;
-		
-		switch (ItemRarity)
-		{
-		case EItemRarity::Common:
-			break;
-		case EItemRarity::Uncommon:
-			Min = 1;
-			Max = 2;
-			break;
-		case EItemRarity::Rare:
-			Min = 3;
-			Max = 6;
-			break;
-		case EItemRarity::Unique:
-			break;
-		}
-		return std::make_pair(Min, Max);
-	}
-```
+### **Overview**:
+The Affixes Generation System in our project dynamically enhances item attributes by applying prefixes and suffixes based on item rarity and type. This system is pivotal in offering diverse customization options and strategic depth to players, enriching gameplay through varied item attributes and effects.
 
-</details>  
+### **Key Components**:
 
-<details>
-<summary>CLICK TO REVEAL GenerateAffixes function call -----></summary>
-	
-```c++
-void ABaseItem::GenerateItem(FItemGenericInfo& ItemData)
-{
-	GenerationInfo = ItemData;
-	const float LootUpwardsImpulse = FMath::RandRange(600, 1000);
-	
-	// Change mesh
-	MeshComponent->SetStaticMesh(GenerationInfo.Mesh);
+- **Enumerations (UENUM)**:
+	- **EAffixType**: Defines types of affixes applied to items (Prefix, Suffix).
+	- **EElementalType**: Specifies elemental attributes affected by affixes (Physical, Fire, Cold, etc.).
+	- **EAttributeType**: Identifies the attribute modified by affixes (Armor, Damage, Health, etc.).
+	- **EValueType**: Determines whether affix values are percentages or flat amounts (Percentage, Flat).
+	- **ETextType**: Specifies the format of textual descriptions for affix effects (ValueToElementAttributeType, ValuePercentageElementAttributeType, etc.).
+   
+- **Structs (USTRUCT)**:
+	- **FAffixesInfo**: Contains detailed data for affixes, including textual descriptions, value ranges, types, and attribute modifiers. This struct ensures consistent application of affix effects across items.
 
-	if(!bAffixesGenerated)
-	{
-		// Generate Affixes
-		AffixDataAssets = UAffixLibrary::GenerateAffixes(
-			GenerationInfo.GetMinMaxAffixes().first,
-			GenerationInfo.GetMinMaxAffixes().second,
-			AffixTable);
-	}
-	
-	GenerateParticleEffect();
-	
-	// Push it in a random direction
-	const FVector RandomDirection = FVector(FMath::VRand()).GetSafeNormal() * LootUpwardsImpulse;
-	
-	BoxComponent->AddImpulse(RandomDirection);
-}
+- **Functions**:
+	- **ReturnTextTemplate**: Generates a formatted text description based on affix type, element type, and attribute type.
+	- **GenerateAffixes**: A function that randomly selects and applies affixes to items based on specified minimum and maximum counts. Affixes are chosen from a data table and categorized into prefixes and suffixes, maintaining balance according to item rarity.
 
-```
-</details>
+- **Example Integration**:
+	- The definitions and structures from [AffixLibrary.h](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/AffixLibrary.h) are integrated with **Data Assets** to define item properties and behaviors.
+	- These definitions ensure that each item can dynamically receive affixes that enhance its attributes and effects based on its rarity and type.
+
+### **Affixes Generation Example**:
+![Item Affixes Example](https://github.com/AlenForko/Project-ARPG/blob/main/Screenshots/AffixesExample.png)
+
+> [!TIP]
+> 
+> <details>
+> <summary>CLICK TO REVEAL GenerateAffixes function call -----></summary>
+> 	
+> ``` c++
+> void ABaseItem::GenerateItem(FItemGenericInfo& ItemData)
+> {
+> 	GenerationInfo = ItemData;
+> 	const float LootUpwardsImpulse = FMath::RandRange(600, 1000);
+> 	
+> 	// Change mesh
+> 	MeshComponent->SetStaticMesh(GenerationInfo.Mesh);
+> 
+> 	if(!bAffixesGenerated)
+> 	{
+> 		// Generate Affixes
+> 		AffixDataAssets = UAffixLibrary::GenerateAffixes(
+> 			GenerationInfo.GetMinMaxAffixes().first,
+> 			GenerationInfo.GetMinMaxAffixes().second,
+> 			AffixTable);
+> 	}
+> 	
+> 	GenerateParticleEffect();
+> 	
+> 	// Push it in a random direction
+> 	const FVector RandomDirection = FVector(FMath::VRand()).GetSafeNormal() * LootUpwardsImpulse;
+> 	
+> 	BoxComponent->AddImpulse(RandomDirection);
+> }
+> 
+> ```
+> </details>
 
 ## **Equipment System**:
 - The equipment system allows players to manage and equip items on their characters. Each item comes with detailed stats that affect the character's performance, such as damage, defense, and special abilities. This system provides a strategic layer to the game, as players must choose the best equipment for their play style.
@@ -231,6 +223,3 @@ void ABaseItem::GenerateItem(FItemGenericInfo& ItemData)
 - The user interface is designed to be intuitive and responsive, providing a seamless experience for players. Each system's UI (loot, item generation, equipment, and inventory) is crafted to be easy to navigate and understand, enhancing the overall user experience.
 
 # Screenshots
-![Loot System UI](path-to-loot-system-ui-screenshot)
-![Inventory System UI](path-to-inventory-system-ui-screenshot)
-![Equipment System UI](path-to-equipment-system-ui-screenshot)
