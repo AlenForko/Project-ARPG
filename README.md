@@ -216,11 +216,40 @@ The Affixes Generation System in our project dynamically enhances item attribute
 > ```
 > </details>
 
-## **Equipment System**:
-- The equipment system allows players to manage and equip items on their characters. Each item comes with detailed stats that affect the character's performance, such as damage, defense, and special abilities. This system provides a strategic layer to the game, as players must choose the best equipment for their play style.
+## **Inventory System**: [InventoryComponent.h](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/Public/InventoryComponent.h) | [InventoryComponent.cpp](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/Private/InventoryComponent.cpp) | [InventoryInterface.h](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/Public/InventoryInterface.h)
 
-## **Inventory System**:
-- The inventory system provides a user-friendly interface for organizing and interacting with items. Players can sort, use, or discard items easily, and the inventory UI offers a clear view of the items' details and their effects on the character.
+### **Overview**:
+- The inventory system in the project is designed to manage items efficiently using a combination of the Observer and MVC (Model-View-Controller) design patterns. This system ensures a clean separation between the inventory's logic and its user interface representation, allowing for scalable and maintainable code.
+
+### **Key Components**:
+- **InventoryInterface**:
+	- This interface defines the functions that must be implemented by any class that wants to observe inventory changes. It includes methods for handling item additions, removals, and movements. 
+
+- **InventoryComponent**:
+	- This class is responsible for managing the inventory logic. It handles adding, removing, and moving items, as well as notifying registered observers about these changes. The inventory is managed using a **TMap**, which is similar to a dictionary, where each slot is keyed by an integer.
+
+- **Inline Functions**:
+	- **AddItem**: Adds an item to the inventory. It first checks if the inventory is full and if the item is valid. If an empty slot is found, the item is added, and observers are notified.
+	- **IsInventoryFull**: Checks if the inventory has any empty slots.
+	- **OnItemAdded**: Adds an item to the inventory map at a specific slot and notifies observers.
+	- **OnItemRemoved**: Removes an item from the inventory map and notifies observers.
+	- **DropItem**: Spawns an item in the world, simulating the action of dropping it from the inventory.
+	- **IsSlotFull**: Checks if a specific slot in the inventory is occupied.
+	- **RegisterObserver**: Registers an observer to be notified of inventory changes.
+	- **UnregisterObservers**: Unregisters all observers.
+	- **NotifyItemAdded**: Notifies all registered observers that an item has been added.
+	- **NotifyItemRemoved**: Notifies all registered observers that an item has been removed.
+	- **NotifyItemMoved**: Notifies all registered observers that an item has been moved.
+	- **OnItemMoved**: Moves an item from one slot to another and notifies observers.
+	- **GetItemAtKey**: Retrieves an item from a specific slot in the inventory. 
+
+## **Inventory UI Classes**:
+- [GridWidget.h](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/Public/GridWidget.h) | [GridWidget.cpp](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/Private/GridWidget.cpp):
+	- LOREUM 
+- [SlotWidget.h](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/Public/SlotWidget.h) | [SlotWidget.cpp](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/Private/SlotWidget.cpp):
+	- LOREUM
+## **Equipment System**: [EquipmentComponent.h](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/Public/EquipmentComponent.h) | [EquipmentComponent.cpp](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/Private/EquipmentComponent.cpp) | [EquipmentInterface.h](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/Interfaces/EquipmentInterface.h)
+- The equipment system allows players to manage and equip items on their characters. Each item comes with detailed stats that affect the character's performance, such as damage, defense, and special abilities. This system provides a strategic layer to the game, as players must choose the best equipment for their play style.
 
 ## **User Interface**:
 - The user interface is designed to be intuitive and responsive, providing a seamless experience for players. Each system's UI (loot, item generation, equipment, and inventory) is crafted to be easy to navigate and understand, enhancing the overall user experience.
