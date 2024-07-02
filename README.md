@@ -245,15 +245,16 @@ The Affixes Generation System in our project dynamically enhances item attribute
 
 ## **Inventory UI Classes**:
 - [GridWidget.h](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/Public/GridWidget.h) | [GridWidget.cpp](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/Private/GridWidget.cpp):
-	- LOREUM 
+	- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 - [SlotWidget.h](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/Public/SlotWidget.h) | [SlotWidget.cpp](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/Private/SlotWidget.cpp):
-	- LOREUM
+	- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
 ## **Equipment System**: [EquipmentComponent.h](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/Public/EquipmentComponent.h) | [EquipmentComponent.cpp](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/Private/EquipmentComponent.cpp) | [EquipmentInterface.h](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/Interfaces/EquipmentInterface.h)
-- The equipment system allows players to manage and equip items on their characters. Each item comes with detailed stats that affect the character's performance, such as damage, defense, and special abilities. This system provides a strategic layer to the game, as players must choose the best equipment for their play style.
+- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 ## **User Interface**:
-- The user interface is designed to be intuitive and responsive, providing a seamless experience for players. Each system's UI (loot, item generation, equipment, and inventory) is crafted to be easy to navigate and understand, enhancing the overall user experience.
-
+- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  
 # Early Stage Screenshots
 ![Showcase1](https://github.com/AlenForko/Project-ARPG/blob/main/Screenshots/EarlyLootStage.png)
 ![Showcase3](https://github.com/AlenForko/Project-ARPG/blob/main/Screenshots/showcase3.png)
