@@ -229,19 +229,9 @@ The Affixes Generation System in our project dynamically enhances item attribute
 	- This class is responsible for managing the inventory logic. It handles adding, removing, and moving items, as well as notifying registered observers about these changes. The inventory is managed using a **TMap**, which is similar to a dictionary, where each slot is keyed by an integer.
 
 - **Inline Functions**:
-	- **AddItem**: Adds an item to the inventory. It first checks if the inventory is full and if the item is valid. If an empty slot is found, the item is added, and observers are notified.
-	- **IsInventoryFull**: Checks if the inventory has any empty slots.
-	- **OnItemAdded**: Adds an item to the inventory map at a specific slot and notifies observers.
-	- **OnItemRemoved**: Removes an item from the inventory map and notifies observers.
-	- **DropItem**: Spawns an item in the world, simulating the action of dropping it from the inventory.
-	- **IsSlotFull**: Checks if a specific slot in the inventory is occupied.
-	- **RegisterObserver**: Registers an observer to be notified of inventory changes.
-	- **UnregisterObservers**: Unregisters all observers.
 	- **NotifyItemAdded**: Notifies all registered observers that an item has been added.
 	- **NotifyItemRemoved**: Notifies all registered observers that an item has been removed.
 	- **NotifyItemMoved**: Notifies all registered observers that an item has been moved.
-	- **OnItemMoved**: Moves an item from one slot to another and notifies observers.
-	- **GetItemAtKey**: Retrieves an item from a specific slot in the inventory. 
 
 ## **Inventory UI Classes**:
 - [GridWidget.h](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/Public/GridWidget.h) | [GridWidget.cpp](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/Private/GridWidget.cpp):
