@@ -102,7 +102,7 @@ This project is my graduation project developed in Unreal Engine 5.3 using C++. 
 
 - **Loot Generation**:
 	- The GenerateLoot function is responsible for generating loot when an enemy is defeated.
-	- It takes the enemy’s location as input and uses the loot table to randomly select items based on their weights.
+	- Items will drop at the enemy's location, randomly selected from the loot table based on their weights.
 	- The function ensures that the number of items spawned (**NumItemsToSpawn**) is managed through rarity and that the loot is distributed around the enemy’s location.
 
 ### **Loot Table example**:
