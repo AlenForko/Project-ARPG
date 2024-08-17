@@ -1,4 +1,4 @@
-# Graduation Project: Project Action Role-Playing Game
+# Graduation Project: Action Role-Playing Game
 
 # Table of Contents
 - [Trailer](https://www.youtube.com/watch?v=q3CqZs5tK4k)
