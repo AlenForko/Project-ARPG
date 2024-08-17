@@ -91,21 +91,16 @@ This project is my graduation project developed in Unreal Engine 5.3 using C++. 
 > </details>
 
 ### **Overview**:
-
 - The loot system in the project is designed to dynamically generate and manage loot drops based on predefined parameters and player actions. It ensures that the loot remains relevant and exciting for players by incorporating variations in rarity and item types.
 
 ### **Key Components**:
-
 - **Loot Table**:
-
 	- The loot table is a **Data Table** that contains different items in the form of **Data Assets** and their respective weights.
 
 - **Weight Calculation**:
-
 	- The system calculates the total weight of all items in the loot table. This total weight is used to determine the probability of each item being dropped.
 
 - **Loot Generation**:
-
 	- The GenerateLoot function is responsible for generating loot when an enemy is defeated.
 	- It takes the enemy’s location as input and uses the loot table to randomly select items based on their weights.
 	- The function ensures that the number of items spawned (**NumItemsToSpawn**) is managed through rarity and that the loot is distributed around the enemy’s location.
@@ -123,30 +118,25 @@ This project is my graduation project developed in Unreal Engine 5.3 using C++. 
 - [DataLibrary.h](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/DataLibrary.h) defines several enumerations, structs, and inline functions that are fundamental for the item generation system in our project. These definitions help in creating and managing item attributes and their behaviors, which are then used in data assets and loot tables.
 
 ### **Key Components**:
-
 - **Enumerations (UENUM)**:
-
 	- EItemSlotType: Defines different item slots (WeaponSlot, NecklaceSlot, etc.).
 	- EItemRarity: Specifies item rarities with display names and weight values (Common, Uncommon, Rare, Unique).
 	- EItemType: Lists types of items (Gold, Weapon, Armor, etc.).
 	- EColorType: Defines color types used to represent item rarities (White, Blue, Yellow, Orange).
  
 - **Structs (USTRUCT)**:
-
 	- FItemTextData: Contains textual data for items such as name, description, and interaction text.
 	- FItemStats: Holds item statistics like damage, armor, consumable value, and item type.
 	- FItemNumericData: Manages stackable properties of items, including max stack size.
 	- FItemGenericInfo: A comprehensive struct that encapsulates all item-related data, including slot type, rarity, color, text data, stats, numeric data, icon, mesh, and particle effects.
 
 - **Inline Functions**:
-
 	- GenerateRandomRarity: Generates a random rarity for an item based on defined weights.
 	- SetColor: Sets the item's color based on its rarity.
 	- SetParticleEffect: Sets the particle effect associated with the item rarity.
 	- GetMinMaxAffixes: Returns the minimum and maximum number of affixes based on item rarity.
 
  - **Example Integration**:
-
 	- [DataLibrary.h](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/DataLibrary.h) definitions are used in conjunction with **Data Assets** to define item properties.
 	- These assets are then fed into a **Data Table**, a.k.a loot table, which the level manager uses to determine item drops during gameplay.
 
@@ -160,7 +150,6 @@ This project is my graduation project developed in Unreal Engine 5.3 using C++. 
 The Affixes Generation System in our project dynamically enhances item attributes by applying prefixes and suffixes based on item rarity and type. This system is pivotal in offering diverse customization options and strategic depth to players, enriching gameplay through varied item attributes and effects.
 
 ### **Key Components**:
-
 - **Enumerations (UENUM)**:
 	- **EAffixType**: Defines types of affixes applied to items (Prefix, Suffix).
 	- **EElementalType**: Specifies elemental attributes affected by affixes (Physical, Fire, Cold, etc.).
@@ -227,23 +216,55 @@ The Affixes Generation System in our project dynamically enhances item attribute
 
 - **InventoryComponent**:
 	- This class is responsible for managing the inventory logic. It handles adding, removing, and moving items, as well as notifying registered observers about these changes. The inventory is managed using a **TMap**, which is similar to a dictionary, where each slot is keyed by an integer.
-
+   
 - **Inline Functions**:
 	- **NotifyItemAdded**: Notifies all registered observers that an item has been added.
 	- **NotifyItemRemoved**: Notifies all registered observers that an item has been removed.
 	- **NotifyItemMoved**: Notifies all registered observers that an item has been moved.
 
 ## **Inventory UI Classes**:
-- [GridWidget.h](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/Public/GridWidget.h) | [GridWidget.cpp](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/Private/GridWidget.cpp):
-	- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-- [SlotWidget.h](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/Public/SlotWidget.h) | [SlotWidget.cpp](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/Private/SlotWidget.cpp):
-	- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+### **Grid Widget**: [GridWidget.h](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/Public/GridWidget.h) | [GridWidget.cpp](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/Private/GridWidget.cpp)
+- The Grid Widget is designed exclusively for constructing the inventory grid and monitoring any additions or movements of items within it. The precise location of each item is efficiently calculated using an inline macro, ensuring accurate and automatic placement within the grid structure.
+    
+> [!TIP]
+> <details>
+> <summary>CLICK TO REVEAL Inline Macro -----></summary>
+> 	
+> ``` c++
+>#define DETERMINE_GRID_LOCATION(ChildCount, MaxPerRow, Row, Column) \
+>{ \
+>	Row = FMath::Floor(static_cast<float>(ChildCount) / MaxPerRow); \
+>	Column = ChildCount % MaxPerRow; \
+>} \
+> 
+> ```
+> </details>
+
+### **Slot Widget**: [SlotWidget.h](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/Public/SlotWidget.h) | [SlotWidget.cpp](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/Private/SlotWidget.cpp)
+- The Slot Widget serves as the visual representation for individual slots within the player's inventory and equipment UI panels. Each instance of SlotWidget represents a single slot that can hold an item, allowing for a dynamic and interactive inventory management experience. The primary purpose of the Slot Widget class is to facilitate the drag-and-drop functionality for items within the inventory and equipment systems. By doing so, it enables players to easily organize their inventory, move items between slots, and equip or unequip items from their character's equipment slots.
 
 ## **Equipment System**: [EquipmentComponent.h](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/Public/EquipmentComponent.h) | [EquipmentComponent.cpp](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/Private/EquipmentComponent.cpp) | [EquipmentInterface.h](https://github.com/AlenForko/Project-ARPG/blob/main/Source/ARPG_AKC/Interfaces/EquipmentInterface.h)
-- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+- The Equipment System is a core feature of the project, allowing players to equip, unequip, and manage various items on their characters. This system is closely integrated with the inventory and ability systems, providing both visual representation and gameplay effects when different gear is equipped.
+  
+### **Key Components**:
+- **Equipment Slots**:
+	- The system defines various equipment slots on the character, such as Head, Weapon, Chest, Gloves, and Boots. Each slot can hold specific types of items, which are visually represented through static meshes attached to the character.
 
-## **User Interface**:
-- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+- **Equip and Unequip Functions**:
+	- The EquipItem function is responsible for equipping an item, duplicating the item object, and notifying other systems (such as UI) that the item has been equipped.
+	- The UnEquipItem function handles the unequipping process, removing the item's effects and visual representation from the character.
+   
+- **Item Affixes and Attributes**:
+	- When an item is equipped, the system applies the item's affix stats (e.g., bonuses to health, damage, or resistance) to the player. This is done dynamically through the Gameplay Effect system, which ensures that the player's attributes are updated based on the equipped gear.
+	- The GivePlayerAffixStats and RemoveAffixStatsFromPlayer functions manage the application and removal of these bonuses.
+ 
+- **Observers and Delegates**:
+	- The Equipment System uses an observer pattern, where different components (like UI elements) can register as observers to get notified when items are equipped or unequipped. This allows for real-time updates to the player's HUD and other interfaces.
+	- Delegates such as OnGearEquipChangeDelegate and OnGearUnEquipChangeDelegate are broadcasted whenever gear changes occur, ensuring that all relevant systems are in sync.
+   
+### **Mesh Management**:
+- The system also handles the visual representation of equipped items by attaching the appropriate mesh to the character model. For example, when a helmet is equipped, its mesh is attached to the character's head socket, and the mesh is made visible. Similarly, when the item is unequipped, the mesh is detached and hidden.
   
 # Early Stage Screenshots
 ![Showcase1](https://github.com/AlenForko/Project-ARPG/blob/main/Screenshots/EarlyLootStage.png)
